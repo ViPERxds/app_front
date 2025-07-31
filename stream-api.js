@@ -2,7 +2,8 @@ const StreamAPI = {
     async getStreamLinks(matches) {
         try {
             // Отправляем запрос к локальному серверу с парсером
-            const response = await fetch('http://127.0.0.1:5000/api/stream-links', {
+            const API_URL = process.env.API_URL || 'http://127.0.0.1:5000';
+            const response = await fetch(`${API_URL}/api/stream-links`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
