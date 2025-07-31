@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Live Matches</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="mobile-container">
+        <header>
+            <div class="header-left">
+                <div class="logo"></div>
+            </div>
+            <div class="header-right">
+                <div class="language-switch">
+                    <img src="ico/ru.png" alt="Русский" class="lang-flag" id="langFlag">
+                </div>
+                <div class="help-icon">
+                    <img src="ico/help.png" alt="Поддержка">
+                </div>
+            </div>
+        </header>
+
+        <div class="date-navigation">
+            <button class="nav-arrow prev">
+                <img src="ico/left.png" alt="Предыдущий день" data-lang="prev-day">
+            </button>
+            <div class="dates-scroll">
+                <button class="date-button">
+                    <div>Пт</div>
+                    <div>28.05</div>
+                </button>
+                <button class="date-button">
+                    <div>Сб</div>
+                    <div>29.05</div>
+                </button>
+                <button class="date-button active">
+                    <div data-lang="today">Сегодня</div>
+                    <div>30.05</div>
+                </button>
+                <button class="date-button">
+                    <div>Пн</div>
+                    <div>31.05</div>
+                </button>
+                <button class="date-button">
+                    <div>Вт</div>
+                    <div>01.06</div>
+                </button>
+            </div>
+            <button class="nav-arrow next">
+                <img src="ico/right.png" alt="Следующий день" data-lang="next-day">
+            </button>
+        </div>
+
+        <div class="sports-section">
+            <div class="sport-icon active" data-sport="football">
+                <img src="ico/football.png" alt="Футбол">
+                <span data-lang="football">Футбол</span>
+            </div>
+            <div class="sport-icon" data-sport="hockey">
+                <img src="ico/hockey.png" alt="Хоккей">
+                <span data-lang="hockey">Хоккей</span>
+            </div>
+            <div class="sport-icon" data-sport="basketball">
+                <img src="ico/basketball.png" alt="Баскетбол">
+                <span data-lang="basketball">Баскетбол</span>
+            </div>
+            <div class="sport-icon" data-sport="tennis">
+                <img src="ico/tennis.png" alt="Теннис">
+                <span data-lang="tennis">Теннис</span>
+            </div>
+        </div>
+
+        <div class="live-buttons">
+            <div class="live-toggle">
+                <div class="live-toggle-bg"></div>
+                <div class="live-toggle-slider">
+                    <span class="live-toggle-text">LIVE</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="matches-container">
+            <p data-lang="no-matches">Матчи пока не добавлены</p>
+        </div>
+
+        <nav class="bottom-navigation">
+            <button onclick="window.location.href='favorites.html'">
+                <img src="ico/favorites.png" alt="Избранное">
+                <span data-lang="favorites">Избранное</span>
+            </button>
+            <button class="active">
+                <img src="ico/game.png" alt="Матчи">
+                <span data-lang="games">Матчи</span>
+            </button>
+            <button data-lang-content="Скоро!">
+                <img src="ico/contest.png" alt="Конкурсы">
+                <span data-lang="contests">Конкурсы</span>
+            </button>
+        </nav>
+    </div>
+
+    <div class="calendar"></div>
+
+    <script src="script.js"></script>
+    <script src="api.js"></script>
+    <script src="theme-lang.js"></script>
+</body>
+</html> 

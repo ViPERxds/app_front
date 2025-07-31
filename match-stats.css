@@ -1,0 +1,371 @@
+html, body {
+    height: 100%;
+    height: var(--app-height);
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+body {
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.mobile-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #000000;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    background-color: #141414;
+    height: 44px;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.logo {
+    position: relative;
+    width: 68px;
+    height: 29px;
+    border: 1px solid #414141;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo::before {
+    content: 'LOGO';
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FFFFFF;
+    width: 35px;
+    height: 15px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0;
+}
+
+.match-header {
+    padding: 20px 16px;
+    background: #000000;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.back-icon {
+    width: 6px;
+    height: 10px;
+    filter: brightness(0) invert(1);
+    transform: rotate(180deg);
+}
+
+.back-button img {
+    width: 24px;
+    height: 24px;
+    filter: brightness(0) invert(1);
+}
+
+.settings-icon {
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    filter: brightness(0) invert(1);
+}
+
+.teams-score {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.team-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.team-name {
+    color: #FFFFFF;
+    font-size: 14px;
+    text-align: center;
+}
+
+.score-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.score {
+    color: #FFFFFF;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.match-time {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+}
+
+.sections-container {
+    flex: 1;
+    overflow-y: auto;
+    padding-bottom: 73px;
+}
+
+.section {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    color: #FFFFFF;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.arrow-icon {
+    width: 6px;
+    height: 10px;
+    filter: brightness(0) invert(1);
+    transition: transform 0.3s ease;
+}
+
+.section.expanded .arrow-icon {
+    transform: rotate(90deg);
+}
+
+.section-content {
+    display: none;
+    padding: 0 16px 16px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.section.expanded .section-content {
+    display: block;
+}
+
+.stats-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #FFFFFF;
+}
+
+.stat-value {
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.stat-name {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.teams-lineup {
+    display: flex;
+    gap: 20px;
+}
+
+.home-lineup,
+.away-lineup {
+    flex: 1;
+}
+
+.home-lineup h3,
+.away-lineup h3 {
+    color: #FFFFFF;
+    font-size: 16px;
+    margin: 0 0 16px 0;
+}
+
+.player-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.player-number {
+    color: #FFBC00;
+    font-size: 14px;
+    font-weight: bold;
+    min-width: 20px;
+}
+
+.player-name {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+.possession-stats,
+.form-stats {
+    color: #FFFFFF;
+}
+
+.no-stats,
+.no-lineup {
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 15px;
+}
+
+.h2h-list {
+    padding: 16px;
+}
+
+.h2h-item {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.h2h-date {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.h2h-teams {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.h2h-team {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+.h2h-score {
+    color: #FFBC00;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.bottom-navigation {
+    background: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-bottom: 13px;
+    height: 73px;
+    width: 100%;
+    max-width: 360px;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    border-top: 1px solid #1C1C1E;
+}
+
+.bottom-navigation button {
+    background: none;
+    border: 1px solid #414141;
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    height: 56px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.bottom-navigation button img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.bottom-navigation button.active {
+    background: #2A2310;
+    border: 1px solid #FFBC00;
+    border-bottom: none;
+    height: 60px;
+    margin-top: 0;
+}
+
+.bottom-navigation button.active img {
+    filter: brightness(0) saturate(100%) invert(71%) sepia(89%) saturate(1161%) hue-rotate(360deg) brightness(103%) contrast(102%);
+}
+
+.bottom-navigation button:nth-child(2) img {
+    width: 26px;
+}
+
+.bottom-navigation button:last-child {
+    position: relative;
+    pointer-events: none;
+}
+
+.bottom-navigation button:last-child::before {
+    content: 'Скоро!';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(28, 28, 30, 0.8);
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    color: #FFFFFF;
+    white-space: nowrap;
+} 

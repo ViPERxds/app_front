@@ -1,0 +1,515 @@
+.live-match-container {
+    padding: 10px;
+    background-color: var(--background-color);
+    height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: var(--header-background, #1a1a1a);
+    color: var(--header-text-color, white);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.match-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: var(--secondary-background);
+    border-radius: 10px;
+}
+
+.team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.team-logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+}
+
+.team-name {
+    font-size: 14px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.match-score {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 20px;
+    color: var(--text-color);
+}
+
+.match-score span {
+    margin: 0 5px;
+}
+
+.video-container {
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 10px;
+    overflow-y: hidden; /* Только блокируем вертикальную прокрутку */
+    background-color: #000;
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    height: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.video-container iframe,
+.video-container video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: #000;
+    object-fit: contain;
+    overflow-y: hidden; /* Только блокируем вертикальную прокрутку */
+}
+
+.video-container iframe::-webkit-scrollbar,
+.video-container video::-webkit-scrollbar {
+    display: none;
+}
+
+/* Запрещаем прокрутку внутри iframe */
+.video-container iframe {
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+}
+
+.video-container.error iframe,
+.video-container.error video {
+    display: none;
+}
+
+/* Стили для элементов управления видео */
+.video-container video::-webkit-media-controls-panel {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.video-container video::-webkit-media-controls-play-button,
+.video-container video::-webkit-media-controls-volume-slider,
+.video-container video::-webkit-media-controls-mute-button,
+.video-container video::-webkit-media-controls-timeline {
+    filter: brightness(1.2);
+}
+
+.match-time {
+    text-align: center;
+    padding: 5px;
+    margin: 10px 0;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+/* Стили для секций */
+.match-sections {
+    margin-top: 20px;
+}
+
+.section-item {
+    background: var(--background-color);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    cursor: pointer;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+.section-toggle {
+    width: 15px;
+    height: 15px;
+    background-image: url('ico/set.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+}
+
+.section-content {
+    display: none;
+    padding: 15px;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Открытое состояние */
+.section-item:not(.collapsed) .section-content {
+    display: block;
+}
+
+/* Стрелка в закрытом состоянии */
+.section-item.collapsed .section-toggle {
+    transform: rotate(90deg);
+}
+
+/* Стрелка в открытом состоянии */
+.section-item:not(.collapsed) .section-toggle {
+    transform: rotate(270deg);
+}
+
+/* Стили для событий */
+.timeline {
+    color: var(--text-color);
+}
+
+.timeline-half {
+    margin-bottom: 20px;
+}
+
+.timeline-half h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.event {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.event-time {
+    width: 40px;
+    font-weight: bold;
+}
+
+.event-icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.event-icon.yellow-card {
+    background-color: #FFD700;
+}
+
+.event-icon.red-card {
+    background-color: #FF0000;
+}
+
+.event-icon.goal {
+    background-image: url('ico/event.svg');
+}
+
+.event-icon.substitution {
+    background-image: url('ico/event.svg');
+    transform: rotate(90deg);
+}
+
+.event-description {
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+/* Стили для владения мячом */
+.possession-stats {
+    padding: 10px 0;
+}
+
+.team-possession {
+    margin-bottom: 15px;
+}
+
+.team-possession .team-name {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: var(--text-color);
+}
+
+.possession-bar {
+    height: 20px;
+    background: #333;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.possession-value {
+    height: 100%;
+    background: #4CAF50;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    color: white;
+    font-size: 12px;
+}
+
+/* Стили для составов */
+.team-lineup {
+    margin-bottom: 20px;
+}
+
+.team-lineup h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.players-list {
+    color: var(--text-color);
+}
+
+/* Стили для формы */
+.team-form {
+    margin-bottom: 20px;
+}
+
+.team-form h3 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.form-results {
+    display: flex;
+    gap: 5px;
+}
+
+.form-result {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.form-result.w {
+    background: #4CAF50;
+}
+
+.form-result.d {
+    background: #FFC107;
+}
+
+.form-result.l {
+    background: #F44336;
+}
+
+.error-message {
+    background-color: var(--error-background, #ff5252);
+    color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.stream-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+}
+
+.loader-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #FFBC00;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 10px;
+}
+
+.loader-text {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.stream-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+}
+
+.error-icon {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.error-text {
+    color: #FFFFFF;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.retry-button {
+    background: #FFBC00;
+    color: #000000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.retry-button:hover {
+    background: #FFD700;
+}
+
+.stream-controls {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 0 0 10px 10px;
+}
+
+.control-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.control-button img {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 5px;
+    filter: brightness(0) invert(1);
+}
+
+.control-button span {
+    font-size: 12px;
+}
+
+.control-button:hover {
+    color: #FFBC00;
+}
+
+.control-button:hover img {
+    filter: brightness(0) saturate(100%) invert(71%) sepia(89%) saturate(1161%) hue-rotate(360deg) brightness(103%) contrast(102%);
+}
+
+/* Стили для полноэкранного режима */
+.video-container.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 480px;
+    z-index: 9999;
+    padding-bottom: 0;
+    border-radius: 0;
+}
+
+.video-container.fullscreen iframe,
+.video-container.fullscreen video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 700px;
+    height: 480px;
+    object-fit: contain;
+}
+
+/* Стили для качества видео */
+.quality-menu {
+    position: absolute;
+    bottom: 60px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 4px;
+    padding: 5px 0;
+    display: none;
+}
+
+.quality-menu.active {
+    display: block;
+}
+
+.quality-option {
+    color: #FFFFFF;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.quality-option:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.quality-option.active {
+    color: #FFBC00;
+} 
+
+.match-score.home-winner {
+    color: #4CAF50;
+}
+
+.match-score.away-winner {
+    color: #4CAF50;
+}
+
+.match-score.home-winner ~ .team:first-of-type .team-name {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+.match-score.away-winner ~ .team:last-of-type .team-name {
+    font-weight: bold;
+    color: #4CAF50;
+} 

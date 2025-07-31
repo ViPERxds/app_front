@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Прямая трансляция</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="live-match.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body>
+    <div class="mobile-container">
+        <header>
+            <h1 data-lang="live-broadcast">Прямая трансляция</h1>
+        </header>
+
+        <div class="live-match-container">
+            <div class="match-header">
+                <div class="team">
+                    <img class="team-logo" src="" alt="" id="homeTeamLogo">
+                    <span class="team-name" id="homeTeamName"></span>
+                </div>
+                <div class="match-score">
+                    <span id="homeScore"></span>
+                    <span>-</span>
+                    <span id="awayScore"></span>
+                </div>
+                <div class="team">
+                    <img class="team-logo" src="" alt="" id="awayTeamLogo">
+                    <span class="team-name" id="awayTeamName"></span>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <div id="streamLoader" class="stream-loader">
+                    <div class="loader-spinner"></div>
+                    <div class="loader-text" data-lang="loading-stream">Загрузка трансляции...</div>
+                </div>
+                <iframe id="matchVideo" frameborder="0" allowfullscreen scrolling="no" style="overflow:hidden; overflow-x:hidden; overflow-y:hidden;" allow="autoplay; fullscreen"></iframe>
+                <div id="streamError" class="stream-error" style="display: none;">
+                    <div class="error-icon">⚠️</div>
+                    <div class="error-text" data-lang="load-error">Ошибка при загрузке данных</div>
+                    <button class="retry-button" onclick="updateStreamLinks()" data-lang="retry">Повторить</button>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-navigation">
+            <button onclick="window.location.href='favorites.html'">
+                <img src="ico/favorites.png" alt="Избранное">
+                <span data-lang="favorites">Избранное</span>
+            </button>
+            <button onclick="window.location.href='index.html'">
+                <img src="ico/game.png" alt="Матчи">
+                <span data-lang="games">Матчи</span>
+            </button>
+            <button>
+                <img src="ico/contest.png" alt="Конкурсы">
+                <span data-lang="contests">Конкурсы</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="theme-lang.js"></script>
+    <script src="api.js"></script>
+    <script src="stream-api.js"></script>
+    <script src="live-match.js"></script>
+</body>
+</html> 

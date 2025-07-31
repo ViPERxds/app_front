@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Избранное</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        .match-item {
+            position: relative;
+            width: 320px;
+            height: 128px;
+            margin: 0 auto 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 7px;
+        }
+
+        .match-header {
+            position: absolute;
+            width: 298px;
+            height: 12px;
+            left: 11px;
+            top: 13px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .favorite-star {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+        }
+
+        .match-date {
+            position: absolute;
+            left: calc(50% - 50px);
+            width: 100px;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 12px;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            white-space: nowrap;
+        }
+
+        .league-name {
+            position: absolute;
+            right: 0;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 12px;
+            text-align: right;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .match-teams {
+            position: absolute;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 0px;
+            gap: 6px;
+            width: 298px;
+            height: 40px;
+            left: calc(50% - 298px/2);
+            top: 36px;
+        }
+
+        .team {
+            width: 72px;
+            height: 40px;
+            position: relative;
+        }
+
+        .team-name {
+            position: absolute;
+            width: 55px;
+            height: 24px;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 12px;
+            color: #FFFFFF;
+        }
+
+        .team:first-child .team-name {
+            right: 0;
+            text-align: right;
+        }
+
+        .team-logo {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .team-logo img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .match-score {
+            width: 50px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19px;
+            text-align: center;
+            color: #FFFFFF;
+        }
+
+        .watch-button {
+            position: absolute;
+            width: 293px;
+            height: 29px;
+            top: 86px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            border: 1px solid #FFBC00;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 10px;
+            line-height: 12px;
+            text-align: center;
+            color: #FFBC00;
+            cursor: pointer;
+        }
+
+        .watch-button.live {
+            background: #FFBC00;
+            color: #121212;
+            border: none;
+        }
+
+        .watch-button.stats {
+            background: #1E1E1E;
+            border: 1px solid #FFBC00;
+            color: #FFBC00;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 16px;
+            filter: brightness(0) saturate(100%) invert(71%) sepia(89%) saturate(1161%) hue-rotate(360deg) brightness(103%) contrast(102%);
+        }
+
+        .empty-state p {
+            color: #FFFFFF;
+            font-size: 15px;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .empty-state span {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            max-width: 240px;
+            text-align: center;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-container">
+        <header>
+            <div class="header-left">
+                <div class="logo"></div>
+            </div>
+            <div class="header-right">
+                <div class="language-switch">
+                    <img src="ico/ru.png" alt="Русский" class="lang-flag" id="langFlag">
+                </div>
+                <div class="help-icon">
+                    <img src="ico/help.png" alt="Поддержка">
+                </div>
+            </div>
+        </header>
+
+        <div class="matches-container" id="favoritesContainer">
+            <!-- Этот блок будет показан, когда нет избранных матчей -->
+            <div class="empty-state" id="emptyFavorites">
+                <p data-lang="no-favorites">В избранном пока ничего нет</p>
+                <span data-lang="add-to-favorites">Добавляйте матчи в избранное, чтобы быстро находить их здесь</span>
+            </div>
+
+            <!-- Сюда будут добавляться избранные матчи -->
+            <div class="favorites-matches" id="favoriteMatches">
+            </div>
+        </div>
+
+        <nav class="bottom-navigation">
+            <button class="active">
+                <img src="ico/favorites.png" alt="Избранное">
+                <span data-lang="favorites">Избранное</span>
+            </button>
+            <button onclick="window.location.href='index.html'">
+                <img src="ico/game.png" alt="Матчи">
+                <span data-lang="games">Матчи</span>
+            </button>
+            <button data-lang-content="Скоро!">
+                <img src="ico/contest.png" alt="Конкурсы">
+                <span data-lang="contests">Конкурсы</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="theme-lang.js"></script>
+    <script>
+        // Функция для форматирования даты
+        function formatDate(dateStr) {
+            const months = [
+                'января', 'февраля', 'марта', 'апреля', 'мая', 'июня',
+                'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'
+            ];
+            const date = new Date(dateStr);
+            return `${date.getDate()} ${months[date.getMonth()]}`;
+        }
+
+        // Функция для создания элемента матча
+        function createMatchElement(match) {
+            const matchDiv = document.createElement('div');
+            matchDiv.className = 'match-item';
+            matchDiv.dataset.matchId = match.id;
+
+            // Определяем статус матча по времени (как в api.js)
+            const [hours, minutes] = (match.time || '00:00').split(':');
+            const matchTime = new Date(match.date);
+            matchTime.setHours(parseInt(hours) + 3, parseInt(minutes));
+            const now = new Date();
+            const timeDiff = (now - matchTime) / (1000 * 60);
+
+            let buttonHtml = '';
+            let scoreDisplay = '';
+
+            if (timeDiff >= -30 && timeDiff <= 120) {
+                scoreDisplay = match.homeScore !== null ? `${match.homeScore} - ${match.awayScore}` : 'vs';
+                buttonHtml = `<button class="watch-button live" onclick="window.location.href='live-match.html?id=${match.id}'">Смотреть матч!</button>`;
+            } else if (timeDiff > 120) {
+                scoreDisplay = `${match.homeScore} - ${match.awayScore}`;
+                buttonHtml = `<button class="watch-button stats" onclick="window.location.href='match-stats.html?id=${match.id}'">Статистика</button>`;
+            } else {
+                scoreDisplay = match.time || '18:00';
+                buttonHtml = `<button class="watch-button">Запланирована трансляция</button>`;
+            }
+
+            matchDiv.innerHTML = `
+                <div class="match-header">
+                    <img src="ico/star.png" alt="Избранное" class="favorite-star active" />
+                    <span class="match-date">${formatDate(match.date)}</span>
+                    <span class="league-name">${match.leagueName || ''}</span>
+                </div>
+                <div class="match-teams">
+                    <div class="team">
+                        <span class="team-name">${match.homeTeam}</span>
+                    </div>
+                    <div class="team-logo">
+                        <img src="${match.homeTeamBadge}" alt="${match.homeTeam}" onerror="this.src='placeholder.png'"/>
+                    </div>
+                    <div class="match-score">${scoreDisplay}</div>
+                    <div class="team-logo">
+                        <img src="${match.awayTeamBadge}" alt="${match.awayTeam}" onerror="this.src='placeholder.png'"/>
+                    </div>
+                    <div class="team">
+                        <span class="team-name">${match.awayTeam}</span>
+                    </div>
+                </div>
+                ${buttonHtml}
+            `;
+
+            // Добавляем обработчик для звездочки
+            const star = matchDiv.querySelector('.favorite-star');
+            star.addEventListener('click', function() {
+                // Удаляем матч из избранного
+                const favoriteMatches = JSON.parse(localStorage.getItem('favoriteMatches') || '[]');
+                const updatedFavorites = favoriteMatches.filter(m => m.id !== match.id);
+                localStorage.setItem('favoriteMatches', JSON.stringify(updatedFavorites));
+                
+                // Перезагружаем список избранного
+                loadFavoriteMatches();
+            });
+
+            return matchDiv;
+        }
+
+        // Функция для загрузки избранных матчей
+        function loadFavoriteMatches() {
+            const favoriteMatches = JSON.parse(localStorage.getItem('favoriteMatches') || '[]');
+            const favoritesContainer = document.getElementById('favoriteMatches');
+            const emptyState = document.getElementById('emptyFavorites');
+
+            if (favoriteMatches.length === 0) {
+                emptyState.style.display = 'flex';
+                favoritesContainer.style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                favoritesContainer.style.display = 'block';
+                favoritesContainer.innerHTML = ''; // Очищаем контейнер
+
+                // Сортируем матчи по дате
+                favoriteMatches.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+                favoriteMatches.forEach(match => {
+                    // Создаем элемент матча
+                    const matchElement = createMatchElement(match);
+                    favoritesContainer.appendChild(matchElement);
+                });
+            }
+        }
+
+        // Загружаем избранные матчи при загрузке страницы
+        document.addEventListener('DOMContentLoaded', loadFavoriteMatches);
+    </script>
+</body>
+</html> 

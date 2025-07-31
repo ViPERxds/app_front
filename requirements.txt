@@ -1,0 +1,5 @@
+selenium==4.18.1
+chromedriver-binary-auto
+flask==3.0.2
+flask-cors==4.0.0
+deep-translator==1.11.4 

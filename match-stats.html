@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Статистика матча</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="match-stats.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <div class="mobile-container">
+        <header>
+            <h1 data-lang="match-stats-title">Статистика матча</h1>
+        </header>
+
+        <div class="match-header">
+            <div class="teams-score">
+                <div class="team home-team">
+                    <img class="team-logo" src="" alt="Домашняя команда">
+                    <span class="team-name"></span>
+                </div>
+                <div class="score-container">
+                    <div class="score">2 - 1</div>
+                    <div class="match-time">14.06, 23:30</div>
+                </div>
+                <div class="team away-team">
+                    <img class="team-logo" src="" alt="Гостевая команда">
+                    <span class="team-name"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="sections-container">
+            <div class="section">
+                <div class="section-header" data-section="stats">
+                    <span data-lang="events">События</span>
+                    <img src="ico/set.png" alt=">" class="arrow-icon">
+                </div>
+                <div class="section-content" id="stats">
+                    <div class="stats-list"></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" data-section="possession">
+                    <span data-lang="possession">Владение мячом</span>
+                    <img src="ico/set.png" alt=">" class="arrow-icon">
+                </div>
+                <div class="section-content" id="possession">
+                    <div class="possession-stats"></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" data-section="lineups">
+                    <span data-lang="lineups">Составы</span>
+                    <img src="ico/set.png" alt=">" class="arrow-icon">
+                </div>
+                <div class="section-content" id="lineups">
+                    <div class="teams-lineup">
+                        <div class="home-lineup">
+                            <h3 data-lang="home-lineup">Состав хозяев</h3>
+                            <div class="players-list"></div>
+                        </div>
+                        <div class="away-lineup">
+                            <h3 data-lang="away-lineup">Состав гостей</h3>
+                            <div class="players-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-header" data-section="form">
+                    <span data-lang="form">Форма</span>
+                    <img src="ico/set.png" alt=">" class="arrow-icon">
+                </div>
+                <div class="section-content" id="form">
+                    <div class="form-stats"></div>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-navigation">
+            <button onclick="window.location.href='favorites.html'">
+                <img src="ico/favorites.png" alt="Избранное">
+                <span data-lang="favorites">Избранное</span>
+            </button>
+            <button class="active">
+                <img src="ico/game.png" alt="Матчи">
+                <span data-lang="games">Матчи</span>
+            </button>
+            <button>
+                <img src="ico/contest.png" alt="Конкурсы">
+                <span data-lang="contests">Конкурсы</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="match-stats.js"></script>
+    <script src="theme-lang.js"></script>
+</body>
+</html> 
