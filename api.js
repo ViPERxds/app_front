@@ -475,6 +475,13 @@ function formatDateForDisplay(dateStr) {
 }
 
 // Функция для форматирования даты
+function convertToMSK(date) {
+    // Получаем смещение в минутах между локальным временем и UTC
+    const localOffset = date.getTimezoneOffset();
+    // Добавляем 3 часа (180 минут) для конвертации в МСК (UTC+3)
+    return new Date(date.getTime() + (localOffset + 180) * 60000);
+}
+
 function formatMatchDate(dateStr, timeStr) {
     if (!dateStr) return '';
     try {
@@ -484,8 +491,9 @@ function formatMatchDate(dateStr, timeStr) {
         ];
 
         // Парсим дату матча
-        const matchDate = new Date(dateStr);
-        const today = new Date();
+        // Конвертируем в МСК
+        const matchDate = convertToMSK(new Date(dateStr));
+        const today = convertToMSK(new Date());
         const tomorrow = new Date(today);
         tomorrow.setDate(today.getDate() + 1);
         
@@ -496,13 +504,13 @@ function formatMatchDate(dateStr, timeStr) {
         
         // Форматируем дату в зависимости от того, когда матч
         if (matchDate.toDateString() === today.toDateString()) {
-        return `Сегодня, ${mskTime}`;
+        return `Сегодня, ${mskTime} МСК`;
         } else if (matchDate.toDateString() === tomorrow.toDateString()) {
-            return `Завтра, ${mskTime}`;
+            return `Завтра, ${mskTime} МСК`;
         } else {
             const day = matchDate.getDate();
             const month = months[matchDate.getMonth()];
-            return `${day} ${month}, ${mskTime}`;
+            return `${day} ${month}, ${mskTime} МСК`;
         }
     } catch (error) {
         console.error('Error formatting date:', error);
