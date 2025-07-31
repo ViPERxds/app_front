@@ -2,7 +2,10 @@ const StreamAPI = {
     async getStreamLinks(matches) {
         try {
             // Отправляем запрос к локальному серверу с парсером
-            const API_URL = process.env.API_URL || 'http://127.0.0.1:5000';
+            // В продакшене используем Railway URL, в разработке - локальный
+            const API_URL = window.location.hostname === 'viperxds.github.io' 
+                ? 'https://app-front-production.up.railway.app'  // URL на Railway
+                : 'http://127.0.0.1:5000';  // Локальный URL
             const response = await fetch(`${API_URL}/api/stream-links`, {
                 method: 'POST',
                 headers: {
@@ -57,6 +60,14 @@ const StreamAPI = {
             return processedLinks;
         } catch (error) {
             console.error('Ошибка при получении ссылок на трансляции:', error);
+            // Показываем пользователю более понятное сообщение об ошибке
+            if (!navigator.onLine) {
+                console.error('Нет подключения к интернету');
+            } else if (error.message.includes('Failed to fetch')) {
+                console.error('Не удалось подключиться к серверу. Возможно, сервер не запущен или недоступен.');
+            } else if (error.message.includes('NetworkError')) {
+                console.error('Ошибка сети. Проверьте подключение к интернету.');
+            }
             throw error;
         }
     }
