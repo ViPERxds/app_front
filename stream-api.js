@@ -4,7 +4,7 @@ const StreamAPI = {
             // Отправляем запрос к локальному серверу с парсером
             // В продакшене используем Railway URL, в разработке - локальный
             const API_URL = window.location.hostname === 'viperxds.github.io' 
-                ? 'https://app-front-production.up.railway.app'  // URL на Railway
+                ? 'https://web-production-45fdc.up.railway.app'  // URL на Railway
                 : 'http://127.0.0.1:5000';  // Локальный URL
             const response = await fetch(`${API_URL}/api/stream-links`, {
                 method: 'POST',
